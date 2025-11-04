@@ -4,12 +4,12 @@
 Reda El Mansouri ELMR90070104 \
 Rapport de laboratoire \
 LOG430 — Architecture logicielle \
-2025-10-03 \
+2025-11-04 \
 École de technologie supérieure
 
 ## Questions
 
-### Question 1: Lequel de ces fichiers Python représente la logique de la machine à états décrite dans les diagrammes du document arc42? Est-ce que son implémentation est complète ou y a-t-il des éléments qui manquent? Illustrez votre réponse avec des extraits de code.
+### **Question 1: Lequel de ces fichiers Python représente la logique de la machine à états décrite dans les diagrammes du document arc42? Est-ce que son implémentation est complète ou y a-t-il des éléments qui manquent? Illustrez votre réponse avec des extraits de code.**
 
 Le fichier qui implémente la logique de la machine à états de l’Order Saga est `src/controllers/order_saga_controller.py`.
 
@@ -57,7 +57,7 @@ Constat de complétude: l’implémentation est partielle. Les transitions suiva
 - Gestion de `CANCELLING_ORDER` absente.
 - La branche `else` marque tout état non géré comme erreur et termine, ce qui court-circuite la machine à états prévue.
 
-### Question 2: Lequel de ces fichiers Python déclenche la création ou suppression des commandes? Est-ce qu'il accède à une base de données directement pour le faire? Illustrez votre réponse avec des extraits de code.
+### **Question 2: Lequel de ces fichiers Python déclenche la création ou suppression des commandes? Est-ce qu'il accède à une base de données directement pour le faire? Illustrez votre réponse avec des extraits de code.**
 
 Le déclenchement de la création et de la suppression de commandes est effectué par `src/handlers/create_order_handler.py`.
 
@@ -80,7 +80,7 @@ response = requests.delete(
 
 Pour l'accès à la BD, ce handler n’y accède pas directement il consomme un service externe par HTTP. La persistance côté Store Manager est encapsulée derrière l’API.
 
-### Question 3 : Quelle requête dans la collection Postman du Labo 05 correspond à l'endpoint appelé dans create_order_handler.py? Illustrez votre réponse avec des captures d'écran ou extraits de code.
+### **Question 3 : Quelle requête dans la collection Postman du Labo 05 correspond à l'endpoint appelé dans create_order_handler.py? Illustrez votre réponse avec des captures d'écran ou extraits de code.**
 
 Dans `create_order_handler.py`, l’endpoint invoqué pour créer une commande est:
 
@@ -111,7 +111,7 @@ La capture partagée montre la requête «GET /orders/:id» dans la collection �
 ![Postman — GET /orders/:id](./assets/images_q3.png)
 
 
-### Question 4 : Quel endpoint avez-vous appelé pour modifier le stock? Quelles informations de la commande avez-vous utilisées?
+### **Question 4 : Quel endpoint avez-vous appelé pour modifier le stock? Quelles informations de la commande avez-vous utilisées?**
 
 
 ```text
@@ -168,7 +168,7 @@ response = requests.post(
 
 
 
-### Question 5 : Quel endpoint avez-vous appelé pour générer une transaction de paiement? Quelles informations de la commande avez-vous utilisées?
+### **Question 5 : Quel endpoint avez-vous appelé pour générer une transaction de paiement? Quelles informations de la commande avez-vous utilisées?**
 
 - Endpoint (via l’API Gateway KrakenD):
 
@@ -210,7 +210,7 @@ pay_resp = requests.post(
   - Succès du POST /payments → `OrderSagaState.COMPLETED`
   - Échec (GET /orders ou POST /payments) → `OrderSagaState.INCREASING_STOCK` (déclenche le rollback du stock)
 
-### Question 6 : Quelle est la différence entre appeler l'orchestrateur Saga et appeler directement les endpoints des services individuels? Quels sont les avantages et inconvénients de chaque approche?
+### **Question 6 : Quelle est la différence entre appeler l'orchestrateur Saga et appeler directement les endpoints des services individuels? Quels sont les avantages et inconvénients de chaque approche?**
 
 #### Appeler l’orchestrateur Saga
 
@@ -294,3 +294,10 @@ Capture de la lecture d’une commande pour vérifier le total_amount, etc.:
 
 ![Postman — GET /orders/:id](./assets/image_q6_get-orders.png)
 
+## Observations additionnelles
+
+- Nous avons amorcé un pipeline GitHub Actions (`.github/workflows/ci-cd.yml`) pour bâtir, tester et déployer l’application.
+- Des erreurs ont été rencontrées lors de l’exécution et le déploiement n’a pas été finalisé:
+	- Erreur d’archivage (`tar: .: file changed as we read it`) — contournée en utilisant `git archive`.
+	- Erreurs liées aux secrets («Missing required secret: HOST») — la configuration des secrets GitHub (SSH_HOST, SSH_USER, SSH_PASSWORD, REMOTE_PATH) reste à finaliser côté dépôt.
+- En résumé, le CI/CD est en place mais nécessite la configuration correcte des secrets/accès pour compléter le déploiement.
