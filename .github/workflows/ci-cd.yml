@@ -45,9 +45,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create deploy tarball
+      - name: Create deploy tarball (from git HEAD)
         run: |
-          tar --exclude='.git' -czf app.tar.gz .
+          git archive --format=tar.gz -o app.tar.gz HEAD
 
       - name: Upload artifact to remote host
         uses: appleboy/scp-action@v0.1.7
