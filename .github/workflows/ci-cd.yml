@@ -45,6 +45,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate required secrets
+        env:
+          HAS_HOST: ${{ secrets.SSH_HOST }}
+          HAS_USER: ${{ secrets.SSH_USER }}
+          HAS_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          HAS_REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+        run: |
+          set -e
+          for var in HAS_HOST HAS_USER HAS_PASSWORD HAS_REMOTE_PATH; do
+            if [ -z "${!var}" ]; then
+              echo "::error:: Missing required secret: ${var#HAS_}"
+              exit 1
+            fi
+          done
+
       - name: Create deploy tarball (from git HEAD)
         run: |
           git archive --format=tar.gz -o app.tar.gz HEAD

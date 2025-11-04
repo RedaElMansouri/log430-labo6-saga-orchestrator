@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>rapport.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="labo-04--rapport">Labo 04 — Rapport</h1>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Ets_quebec_logo.png" width="250"> <br>
+Reda El Mansouri ELMR90070104 <br>
+Rapport de laboratoire <br>
+LOG430 — Architecture logicielle <br>
+2025-10-03 <br>
+École de technologie supérieure</p>
+<h2 id="questions">Questions</h2>
+<h3 id="question-1-lequel-de-ces-fichiers-python-repr%C3%A9sente-la-logique-de-la-machine-%C3%A0-%C3%A9tats-d%C3%A9crite-dans-les-diagrammes-du-document-arc42-est-ce-que-son-impl%C3%A9mentation-est-compl%C3%A8te-ou-y-a-t-il-des-%C3%A9l%C3%A9ments-qui-manquent-illustrez-votre-r%C3%A9ponse-avec-des-extraits-de-code">Question 1: Lequel de ces fichiers Python représente la logique de la machine à états décrite dans les diagrammes du document arc42? Est-ce que son implémentation est complète ou y a-t-il des éléments qui manquent? Illustrez votre réponse avec des extraits de code.</h3>
+<p>Le fichier qui implémente la logique de la machine à états de l’Order Saga est <code>src/controllers/order_saga_controller.py</code>.</p>
+<ul>
+<li>Il initialise l’état courant et boucle jusqu’à l’état terminal <code>COMPLETED</code>.</li>
+<li>Il appelle les Handlers appropriés pour faire avancer l’état ou déclencher des compensations.</li>
+</ul>
+<p>Extrait clé montrant l’état initial et la boucle d’orchestration:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderSagaController</span><span class="hljs-params">(Controller)</span>:</span>
+	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+		super().__init__()
+		self.current_saga_state = OrderSagaState.CREATING_ORDER
+    
+	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self, request)</span>:</span>
+		...
+		<span class="hljs-keyword">while</span> self.current_saga_state <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> OrderSagaState.COMPLETED:
+			<span class="hljs-keyword">if</span> self.current_saga_state == OrderSagaState.CREATING_ORDER:
+				self.current_saga_state = self.create_order_handler.run()
+			<span class="hljs-keyword">elif</span> self.current_saga_state == OrderSagaState.DECREASING_STOCK:
+				self.increase_stock_handler = DecreaseStockHandler(order_data[<span class="hljs-string">"items"</span>])
+				self.current_saga_state = self.increase_stock_handler.run()
+			<span class="hljs-keyword">else</span>:
+				self.is_error_occurred = <span class="hljs-literal">True</span>
+				self.logger.debug(<span class="hljs-string">f"L'état saga n'est pas valide : <span class="hljs-subst">{self.current_saga_state}</span>"</span>)
+				self.current_saga_state = OrderSagaState.COMPLETED
+</div></code></pre>
+<p>Comparaison avec le diagramme de la machine à états (voir <code>docs/arc42/docs.md</code>) et l’énumération <code>OrderSagaState</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderSagaState</span><span class="hljs-params">(Enum)</span>:</span>
+	CREATING_ORDER = <span class="hljs-number">1</span>
+	DECREASING_STOCK = <span class="hljs-number">2</span>
+	CREATING_PAYMENT = <span class="hljs-number">3</span>
+	INCREASING_STOCK = <span class="hljs-number">4</span>
+	CANCELLING_ORDER = <span class="hljs-number">5</span>
+	COMPLETED = <span class="hljs-number">6</span>
+</div></code></pre>
+<p>Constat de complétude: l’implémentation est partielle. Les transitions suivantes manquent dans le contrôleur:</p>
+<ul>
+<li>Passage de <code>DECREASING_STOCK</code> vers <code>CREATING_PAYMENT</code> déjà amorcé, mais la gestion de <code>CREATING_PAYMENT</code> n’est pas implémenté.</li>
+<li>Gestion de <code>INCREASING_STOCK</code> absente.</li>
+<li>Gestion de <code>CANCELLING_ORDER</code> absente.</li>
+<li>La branche <code>else</code> marque tout état non géré comme erreur et termine, ce qui court-circuite la machine à états prévue.</li>
+</ul>
+<h3 id="question-2-lequel-de-ces-fichiers-python-d%C3%A9clenche-la-cr%C3%A9ation-ou-suppression-des-commandes-est-ce-quil-acc%C3%A8de-%C3%A0-une-base-de-donn%C3%A9es-directement-pour-le-faire-illustrez-votre-r%C3%A9ponse-avec-des-extraits-de-code">Question 2: Lequel de ces fichiers Python déclenche la création ou suppression des commandes? Est-ce qu'il accède à une base de données directement pour le faire? Illustrez votre réponse avec des extraits de code.</h3>
+<p>Le déclenchement de la création et de la suppression de commandes est effectué par <code>src/handlers/create_order_handler.py</code>.</p>
+<ul>
+<li>Création: envoi d’une requête HTTP POST vers l’API Store Manager via l’API Gateway.</li>
+</ul>
+<pre class="hljs"><code><div>response = requests.post(<span class="hljs-string">f'<span class="hljs-subst">{config.API_GATEWAY_URL}</span>/store-manager-api/orders'</span>,
+	json=self.order_data,
+	headers={<span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>}
+)
+</div></code></pre>
+<ul>
+<li>Suppression (rollback): envoi d’une requête HTTP DELETE vers l’API Store Manager.</li>
+</ul>
+<pre class="hljs"><code><div>response = requests.delete(
+	<span class="hljs-string">f"<span class="hljs-subst">{config.API_GATEWAY_URL}</span>/store-manager-api/orders/<span class="hljs-subst">{self.order_id}</span>"</span>
+)
+</div></code></pre>
+<p>Pour l'accès à la BD, ce handler n’y accède pas directement il consomme un service externe par HTTP. La persistance côté Store Manager est encapsulée derrière l’API.</p>
+<h3 id="question-3--quelle-requ%C3%AAte-dans-la-collection-postman-du-labo-05-correspond-%C3%A0-lendpoint-appel%C3%A9-dans-createorderhandlerpy-illustrez-votre-r%C3%A9ponse-avec-des-captures-d%C3%A9cran-ou-extraits-de-code">Question 3 : Quelle requête dans la collection Postman du Labo 05 correspond à l'endpoint appelé dans create_order_handler.py? Illustrez votre réponse avec des captures d'écran ou extraits de code.</h3>
+<p>Dans <code>create_order_handler.py</code>, l’endpoint invoqué pour créer une commande est:</p>
+<pre class="hljs"><code><div>POST {API_GATEWAY_URL}/store-manager-api/orders
+</div></code></pre>
+<p>Dans la collection Postman du Labo 05, la requête correspondante est celle de création de commande, nommée «POST /store-manager-api/orders» et attend un corps JSON similaire à:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"user_id"</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">"items"</span>: [
+	{<span class="hljs-attr">"product_id"</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">2</span>},
+	{<span class="hljs-attr">"product_id"</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">4</span>}
+  ]
+}
+</div></code></pre>
+<p>À titre indicatif, la collection Postman fournie pour l’orchestrateur dans ce dépôt contient l’appel «POST /saga/order» (<code>docs/collections/saga_orchestrator.json</code>) qui démarre la saga côté orchestrateur:</p>
+<pre class="hljs"><code><div>POST localhost:<span class="hljs-number">5123</span>/saga/order
+</div></code></pre>
+<p>La capture partagée montre la requête «GET /orders/:id» dans la collection «LOG430 Store Manager / Orders». Elle confirme la présence des ressources côté Store Manager et illustre la réponse contenant, entre autres, <code>total_amount</code> et un <code>payment_link</code>.</p>
+<p><img src="./assets/images_q3.png" alt="Postman — GET /orders/:id"></p>
+<h3 id="question-4--quel-endpoint-avez-vous-appel%C3%A9-pour-modifier-le-stock-quelles-informations-de-la-commande-avez-vous-utilis%C3%A9es">Question 4 : Quel endpoint avez-vous appelé pour modifier le stock? Quelles informations de la commande avez-vous utilisées?</h3>
+<pre class="hljs"><code><div>POST {API_GATEWAY_URL}/store-manager-api/stocks
+</div></code></pre>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"items"</span>: [
+		{ <span class="hljs-attr">"product_id"</span>: &lt;id&gt;, <span class="hljs-attr">"quantity"</span>: &lt;qte&gt; },
+		{ <span class="hljs-attr">"product_id"</span>: &lt;id&gt;, <span class="hljs-attr">"quantity"</span>: &lt;qte&gt; }
+	],
+	<span class="hljs-attr">"operation"</span>: <span class="hljs-string">"-"</span>
+}
+</div></code></pre>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"items"</span>: [
+		{ <span class="hljs-attr">"product_id"</span>: &lt;id&gt;, <span class="hljs-attr">"quantity"</span>: &lt;qte&gt; },
+		{ <span class="hljs-attr">"product_id"</span>: &lt;id&gt;, <span class="hljs-attr">"quantity"</span>: &lt;qte&gt; }
+	],
+	<span class="hljs-attr">"operation"</span>: <span class="hljs-string">"+"</span>
+}
+</div></code></pre>
+<p>Les informations de la commande utilisées sont la liste des items (<code>items</code>) transmise à l’orchestrateur, chaque item contenant au minimum <code>product_id</code> et <code>quantity</code>. Le champ <code>operation</code> vaut <code>&quot;-&quot;</code> pour décrémenter le stock lors de l’exécution normale et <code>&quot;+&quot;</code> pour rétablir le stock lors du rollback.</p>
+<p>Extraits de code :</p>
+<pre class="hljs"><code><div>response = requests.post(
+		<span class="hljs-string">f"<span class="hljs-subst">{config.API_GATEWAY_URL}</span>/store-manager-api/stocks"</span>,
+		json={
+				<span class="hljs-string">"items"</span>: self.order_item_data,
+				<span class="hljs-string">"operation"</span>: <span class="hljs-string">"-"</span>
+		},
+		headers={<span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>}
+)
+</div></code></pre>
+<pre class="hljs"><code><div>response = requests.post(
+		<span class="hljs-string">f"<span class="hljs-subst">{config.API_GATEWAY_URL}</span>/store-manager-api/stocks"</span>,
+		json={
+				<span class="hljs-string">"items"</span>: self.order_item_data,
+				<span class="hljs-string">"operation"</span>: <span class="hljs-string">"+"</span>
+		},
+		headers={<span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>}
+)
+</div></code></pre>
+<h3 id="question-5--quel-endpoint-avez-vous-appel%C3%A9-pour-g%C3%A9n%C3%A9rer-une-transaction-de-paiement-quelles-informations-de-la-commande-avez-vous-utilis%C3%A9es">Question 5 : Quel endpoint avez-vous appelé pour générer une transaction de paiement? Quelles informations de la commande avez-vous utilisées?</h3>
+<ul>
+<li>Endpoint (via l’API Gateway KrakenD):</li>
+</ul>
+<pre class="hljs"><code><div>GET  {API_GATEWAY_URL}/store-manager-api/orders/{order_id}   # pour récupérer total_amount
+POST {API_GATEWAY_URL}/payments-api/payments                 # pour créer la transaction de paiement
+</div></code></pre>
+<ul>
+<li>
+<p>Données utilisées:</p>
+<ul>
+<li><code>order_id</code> (issu de la première étape de la saga)</li>
+<li><code>user_id</code> (du payload initial de la commande)</li>
+<li><code>total_amount</code> (lu depuis le GET /orders/{id})</li>
+</ul>
+</li>
+<li>
+<p>Extraits de code (<code>src/handlers/create_payment_handler.py</code>):</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>order_resp = requests.get(
+    <span class="hljs-string">f"<span class="hljs-subst">{config.API_GATEWAY_URL}</span>/store-manager-api/orders/<span class="hljs-subst">{self.order_id}</span>"</span>,
+    headers={<span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>}
+)
+order_data = order_resp.json() <span class="hljs-keyword">or</span> {}
+self.total_amount = order_data.get(<span class="hljs-string">'total_amount'</span>, <span class="hljs-number">0</span>)
+</div></code></pre>
+<pre class="hljs"><code><div>payment_payload = {
+    <span class="hljs-string">"order_id"</span>: self.order_id,
+    <span class="hljs-string">"user_id"</span>: self.order_data.get(<span class="hljs-string">"user_id"</span>),
+    <span class="hljs-string">"amount"</span>: self.total_amount
+}
+pay_resp = requests.post(
+    <span class="hljs-string">f"<span class="hljs-subst">{config.API_GATEWAY_URL}</span>/payments-api/payments"</span>,
+    json=payment_payload,
+    headers={<span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>}
+)
+</div></code></pre>
+<ul>
+<li>Comportement de la machine à états:
+<ul>
+<li>Succès du POST /payments → <code>OrderSagaState.COMPLETED</code></li>
+<li>Échec (GET /orders ou POST /payments) → <code>OrderSagaState.INCREASING_STOCK</code> (déclenche le rollback du stock)</li>
+</ul>
+</li>
+</ul>
+<h3 id="question-6--quelle-est-la-diff%C3%A9rence-entre-appeler-lorchestrateur-saga-et-appeler-directement-les-endpoints-des-services-individuels-quels-sont-les-avantages-et-inconv%C3%A9nients-de-chaque-approche">Question 6 : Quelle est la différence entre appeler l'orchestrateur Saga et appeler directement les endpoints des services individuels? Quels sont les avantages et inconvénients de chaque approche?</h3>
+<h4 id="appeler-lorchestrateur-saga">Appeler l’orchestrateur Saga</h4>
+<ul>
+<li>Exemple de requête (collection «LOG430 Saga Orchestrator»):</li>
+</ul>
+<pre class="hljs"><code><div>POST http:<span class="hljs-comment">//localhost:5123/saga/order</span>
+{
+	<span class="hljs-attr">"user_id"</span>: <span class="hljs-number">1</span>,
+	<span class="hljs-attr">"items"</span>: [
+		{<span class="hljs-attr">"product_id"</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">2</span>},
+		{<span class="hljs-attr">"product_id"</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">4</span>}
+	]
+}
+</div></code></pre>
+<ul>
+<li>Extrait côté code (orchestrateur):</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># src/saga_orchestrator.py</span>
+<span class="hljs-meta">@app.post('/saga/order')</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">saga_order</span><span class="hljs-params">()</span>:</span>
+	<span class="hljs-keyword">with</span> tracer.start_as_current_span(<span class="hljs-string">"saga.order.start"</span>):
+		order_saga_controller = OrderSagaController()
+		<span class="hljs-keyword">return</span> jsonify(order_saga_controller.run(request))
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># src/controllers/order_saga_controller.py (extrait des transitions)</span>
+<span class="hljs-keyword">if</span> self.current_saga_state == OrderSagaState.CREATING_ORDER:
+		self.current_saga_state = self.create_order_handler.run()
+<span class="hljs-keyword">elif</span> self.current_saga_state == OrderSagaState.DECREASING_STOCK:
+		self.increase_stock_handler = DecreaseStockHandler(order_data[<span class="hljs-string">"items"</span>])
+		self.current_saga_state = self.increase_stock_handler.run()
+<span class="hljs-keyword">elif</span> self.current_saga_state == OrderSagaState.CREATING_PAYMENT:
+		self.create_payment_handler = CreatePaymentHandler(self.create_order_handler.order_id, order_data)
+		self.current_saga_state = self.create_payment_handler.run()
+<span class="hljs-keyword">elif</span> self.current_saga_state == OrderSagaState.INCREASING_STOCK:
+		self.current_saga_state = self.increase_stock_handler.rollback()
+<span class="hljs-keyword">elif</span> self.current_saga_state == OrderSagaState.CANCELLING_ORDER:
+		self.current_saga_state = self.create_order_handler.rollback()
+</div></code></pre>
+<ul>
+<li>Avantages:
+<ul>
+<li>Coordination centralisée des étapes et des compensations.</li>
+<li>Meilleure cohérence fonctionnelle.</li>
+<li>Point d’entrée unique; plus simple pour l’exposition publique et le monitoring.</li>
+<li>Tracing distribué plus lisible.</li>
+</ul>
+</li>
+<li>Inconvénients:
+<ul>
+<li>Point de défaillance unique, et risque de bottleneck.</li>
+<li>Besoin d’implémenter/persister l’état si on veut du retry robuste.</li>
+<li>Latence additionnelle et complexité opérationnelle.</li>
+</ul>
+</li>
+</ul>
+<p>Capture du POST orchestrateur:</p>
+<p><img src="./assets/image_q6_saga-order.png" alt="Postman — POST /saga/order"></p>
+<h4 id="appeler-directement-les-services-individuels">Appeler directement les services individuels</h4>
+<ul>
+<li>Séquence typique côté client (via l’API Gateway KrakenD):</li>
+</ul>
+<pre class="hljs"><code><div>POST {API_GATEWAY_URL}/store-manager-api/orders          # créer la commande
+POST {API_GATEWAY_URL}/store-manager-api/stocks          # décrémenter le stock (operation = <span class="hljs-string">"-"</span>)
+POST {API_GATEWAY_URL}/payments-api/payments             # créer la transaction de paiement
+
+# Compensations côté client en cas d’échec:
+# -&gt; si paiement échoue -&gt; POST stocks (operation = <span class="hljs-string">"+"</span>) puis DELETE /orders/{id}
+</div></code></pre>
+<ul>
+<li>
+<p>Avantages:</p>
+<ul>
+<li>Moins de services à opérer.</li>
+<li>Potentiellement moins de latence si le client est proche des services.</li>
+</ul>
+</li>
+<li>
+<p>Inconvénients:</p>
+<ul>
+<li>Le client doit porter toute la logique de saga/compensation: code répétitif, forte liaison, plus d’erreurs potentielles.</li>
+<li>Cohérence plus difficile à garantir.</li>
+<li>Observabilité et tracing fragmentés si le client ne propage pas correctement les entêtes de trace.</li>
+</ul>
+</li>
+</ul>
+<p>Capture de la lecture d’une commande pour vérifier le total_amount, etc.:</p>
+<p><img src="./assets/image_q6_get-orders.png" alt="Postman — GET /orders/:id"></p>
+
+</body>
+</html>
